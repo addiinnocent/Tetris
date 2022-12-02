@@ -1,14 +1,48 @@
 const speed = 600;
 
-async function init() {
+let initialised = false;
 
-    let block = await randomBlock()
 
-    putBlock(block);
+init().then((block) => {
+    let gameClock = setInterval(() => {
 
-    for (let i = 0; i < field.length; i++) {
-        console.count(field[i]);
-    }
+        resetField().then( () => {
+            putBlock(block, 1).then ( () =>{
+                for (let i = 0; i < field.length; i++) {
+                    console.count(field[i]);
+                }
+            });
+        });
+
+    }, speed);
+
+}).catch((Error) => {
+    console.log(Error)
+})
+
+
+
+function init() {
+    return new Promise((resolve, reject) => {
+        let block = randomBlock().then(block => {
+
+            putBlock(block, 0).then(() => {
+
+                initialised = true;
+                resolve(block);
+
+            })
+        })
+
+
+    });
+}
+
+function resetField(){
+    return new Promise( (resolve, reject) =>{
+
+    })
+
 }
 
 function randomBlock() {
@@ -32,19 +66,23 @@ function randomBlock() {
     });
 }
 
-function putBlock(block) {
+function putBlock(block, position) {
     return new Promise((resolve, reject) => {
 
         for (let i = 0; i < 4; i++) {
-            field[i] = block[i] + field[i];
-            field[i] = field[i].slice(0, 16);
+            field[i+position] = block[i] + field[i]; //Zeile
+            field[i] = field[i].slice(0, 16); //Zeile
         }
     });
 }
 
-init().catch((Error) => {
-    console.log(Error)})
+function moveBlock(block, field) {
+    return new Promise( (resolve, reject) => {
 
-let gameClock = setInterval(() => {
-}, speed);
+    })
+}
 
+
+
+
+//Letzter stand:  resetField in gameClock
