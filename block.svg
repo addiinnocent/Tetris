@@ -4,6 +4,6 @@
 <svg height="100%" stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 102400 102400" width="100%" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:vectornator="http://vectornator.io" xmlns:xlink="http://www.w3.org/1999/xlink">
 <defs/>
 <g id="Layer-1" vectornator:layerName="Layer 1">
-<path d="M15120 15120L90760.5 15120L90760.5 90760.5L15120 90760.5L15120 15120Z" fill="#000000" fill-rule="nonzero" opacity="1" stroke="none"/>
+<path d="M15120 15120L90760.5 15120L90760.5 90760.5L15120 90760.5L15120 15120Z" fill-rule="nonzero" opacity="1" stroke="none"/>
 </g>
 </svg>

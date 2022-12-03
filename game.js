@@ -5,9 +5,6 @@ const img = document.createElement('img');
 canvas.width = 400;
 canvas.height = 600;
 canvas.style.border = '1px solid black';
-
-img.width = 40;
-img.height = 40;
 img.src = './block.svg';
 
 init().then((block) => {
@@ -42,7 +39,10 @@ function renderField(field){
           console.count(field[i]);
       }
       const ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0, 40, 40);
+      ctx.fillStyle = 'green';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.globalCompositeOperation = "destination-in";
+      ctx.drawImage(img, 0, 0, 20, 20);
     })
 
 }
@@ -77,7 +77,7 @@ function putBlock(block, position) {
             if (block_row[j]) field_row[j] = block_row[j]; //wenn block einen wert an der stelle hat eintragen ansonsten o
             else field_row[j] = 'o';
           }
-          field[i] = field_row.join(''); //array zu string reihe
+          field[i] = field_row.join(''); //array wieder zu string reihe
         }
         resolve(field);
     });
