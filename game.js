@@ -1,19 +1,23 @@
-const speed = 600;
+const speed = 6000;
+const canvas = document.querySelector('canvas');
+const img = document.createElement('img');
 
-let initialised = false;
+canvas.width = 400;
+canvas.height = 600;
+canvas.style.border = '1px solid black';
 
+img.width = 40;
+img.height = 40;
+img.src = './block.svg';
 
 init().then((block) => {
     let gameClock = setInterval(() => {
 
-        resetField().then( () => {
-            putBlock(block, 1).then ( () =>{
-                for (let i = 0; i < field.length; i++) {
-                    console.count(field[i]);
-                }
-            });
-        });
+      putBlock(block, 0).then((field) =>{
+        renderField(field).then( () => {
 
+        });
+      });
     }, speed);
 
 }).catch((Error) => {
@@ -25,22 +29,20 @@ init().then((block) => {
 function init() {
     return new Promise((resolve, reject) => {
         let block = randomBlock().then(block => {
-
             putBlock(block, 0).then(() => {
-
-                initialised = true;
                 resolve(block);
-
             })
         })
-
-
     });
 }
 
-function resetField(){
-    return new Promise( (resolve, reject) =>{
-
+function renderField(field){
+    return new Promise( (resolve, reject) => {
+      for (let i = 0; i < field.length; i++) {
+          console.count(field[i]);
+      }
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, 40, 40);
     })
 
 }
@@ -68,11 +70,16 @@ function randomBlock() {
 
 function putBlock(block, position) {
     return new Promise((resolve, reject) => {
-
         for (let i = 0; i < 4; i++) {
-            field[i+position] = block[i] + field[i]; //Zeile
-            field[i] = field[i].slice(0, 16); //Zeile
+          let field_row = field[i].split(''); //reihe zu array
+          let block_row = block[i].split('');
+          for(let j = 0; j < 16; j++) {
+            if (block_row[j]) field_row[j] = block_row[j]; //wenn block einen wert an der stelle hat eintragen ansonsten o
+            else field_row[j] = 'o';
+          }
+          field[i] = field_row.join(''); //array zu string reihe
         }
+        resolve(field);
     });
 }
 
